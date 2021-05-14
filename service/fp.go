@@ -3,7 +3,7 @@ package service
 import (
 	"zexho994/go-gather-search/entity"
 	"zexho994/go-gather-search/form"
-	mongo "zexho994/go-gather-search/mongo"
+	"zexho994/go-gather-search/mongo"
 )
 
 func AddFp(form form.AddFpForm) {
@@ -23,4 +23,12 @@ func FindFp(email string) []entity.FavoritePage {
 
 func RemoveFp(email, url string) bool {
 	return mongo.RemoveFp(email, url)
+}
+
+func Exist(email, url string) bool {
+	fp := mongo.FindOne(email, url)
+	if fp == nil {
+		return false
+	}
+	return true
 }

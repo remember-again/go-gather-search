@@ -39,3 +39,8 @@ func RemoveFpApi(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"msg": effect})
 	return
 }
+
+func ExistApi(c *gin.Context) {
+	flag := service.Exist(c.Param("email"), c.Param("url"))
+	c.JSON(http.StatusOK, gin.H{"data": flag})
+}

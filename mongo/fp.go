@@ -36,3 +36,14 @@ func RemoveFp(email, url string) bool {
 	}
 	return true
 }
+
+func FindOne(email, url string) *entity.FavoritePage {
+	filter := bson.D{{"email", email}, {"url", url}}
+	//fp = entity.FavoritePage{}
+	fp := &entity.FavoritePage{}
+	err := DB_FP().FindOne(context.TODO(), filter).Decode(fp)
+	if err != nil {
+		return nil
+	}
+	return fp
+}

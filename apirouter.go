@@ -15,6 +15,7 @@ func InitRouter() *gin.Engine {
 		fp.POST("", a.AddFpApi)
 		fp.GET("/email/:email", a.FindFpApi)
 		fp.DELETE("", a.RemoveFpApi)
+		fp.GET("/email/:email/url/:url", a.ExistApi)
 	}
 
 	return r
