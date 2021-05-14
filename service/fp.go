@@ -3,17 +3,20 @@ package service
 import (
 	"zexho994/go-gather-search/entity"
 	"zexho994/go-gather-search/form"
-	"zexho994/go-gather-search/mongo"
+	mongo "zexho994/go-gather-search/mongo"
 )
 
-func AddFpService(form form.AddFpForm) {
+func AddFp(form form.AddFpForm) {
+	e := entity.FavoritePage{}
+	e.Score = form.Score
+	e.Email = form.Email
+	e.EmailType = form.EmailType
+	e.Url = form.Url
+	e.Title = form.Title
 
-	entity := entity.FavoritePage{}
-	entity.Score = form.Score
-	entity.Email = form.Email
-	entity.EmailType = form.EmailType
-	entity.Url = form.Url
-	entity.Title = form.Title
+	mongo.AddFp(e)
+}
 
-	mongo.AddFpToDB(entity, mongo.GetMongoDB("gather-search"))
+func FindFp(email string) []entity.FavoritePage {
+	return mongo.FindFp(email)
 }

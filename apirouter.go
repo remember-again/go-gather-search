@@ -10,9 +10,11 @@ func InitRouter() *gin.Engine {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 	gin.SetMode("release")
-	api := r.Group("/api")
+	fp := r.Group("/api/user/page/favorite")
 	{
-		api.POST("/user/page/favorite", a.AddFavoritePageApi)
+		fp.POST("", a.AddFpApi)
+		fp.GET("/email/:email", a.FindFpApi)
 	}
+
 	return r
 }

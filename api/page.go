@@ -4,11 +4,11 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"zexho994/go-gather-search/form"
-	"zexho994/go-gather-search/service"
+	service "zexho994/go-gather-search/service"
 )
 
-// AddFavoritePageApi storage page for user
-func AddFavoritePageApi(c *gin.Context) {
+// AddFpApi storage page for user
+func AddFpApi(c *gin.Context) {
 	fpForm := form.AddFpForm{}
 	err := c.BindJSON(&fpForm)
 	if err != nil {
@@ -16,8 +16,18 @@ func AddFavoritePageApi(c *gin.Context) {
 		return
 	}
 
-	service.AddFpService(fpForm)
+	service.AddFp(fpForm)
 
 	c.JSON(http.StatusOK, gin.H{"msg": "ok"})
 	return
+}
+
+// FindFpApi find user's fp
+func FindFpApi(c *gin.Context) {
+	res := service.FindFp(c.Param("email"))
+	c.JSON(http.StatusOK, gin.H{"data": res})
+}
+
+func RemoveFpApi(c *gin.Context) {
+
 }

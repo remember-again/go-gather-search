@@ -26,10 +26,14 @@ func newClient(dbname string) *mongo.Database {
 	return client.Database(dbname)
 }
 
-func GetMongoDB(dbName string) *mongo.Database {
+func getDB(dbName string) *mongo.Database {
 	if client == nil {
 		client = newClient(dbName)
 	}
 
 	return client
+}
+
+func DB_FP() *mongo.Collection {
+	return getDB("gather-search").Collection("favoritePage")
 }
