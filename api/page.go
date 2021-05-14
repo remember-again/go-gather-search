@@ -29,5 +29,13 @@ func FindFpApi(c *gin.Context) {
 }
 
 func RemoveFpApi(c *gin.Context) {
-
+	fpForm := form.RemoveFpForm{}
+	err := c.BindJSON(&fpForm)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"msg": "parameter error"})
+		return
+	}
+	effect := service.RemoveFp(fpForm.Email, fpForm.Url)
+	c.JSON(http.StatusOK, gin.H{"msg": effect})
+	return
 }

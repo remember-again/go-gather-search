@@ -20,3 +20,7 @@ func AddFp(form form.AddFpForm) {
 func FindFp(email string) []entity.FavoritePage {
 	return mongo.FindFp(email)
 }
+
+func RemoveFp(email, url string) bool {
+	return mongo.RemoveFp(email, url)
+}

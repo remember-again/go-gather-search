@@ -27,3 +27,12 @@ func FindFp(email string) []entity.FavoritePage {
 
 	return fps
 }
+
+func RemoveFp(email, url string) bool {
+	filter := bson.D{{"email", email}, {"url", url}}
+	_, err := DB_FP().DeleteOne(context.TODO(), filter)
+	if err != nil {
+		return false
+	}
+	return true
+}
