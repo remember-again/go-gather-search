@@ -12,7 +12,7 @@ func InitRouter() *gin.Engine {
 	gin.SetMode("release")
 	api := r.Group("/api")
 	{
-		api.POST("/user/page/favorite", a.AddFavoritePage)
+		api.POST("/user/page/favorite", a.AddFavoritePageApi)
 	}
 	return r
 }

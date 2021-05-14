@@ -10,6 +10,10 @@ func AddFpService(form form.AddFpForm) {
 
 	entity := entity.FavoritePage{}
 	entity.Score = form.Score
+	entity.Email = form.Email
+	entity.EmailType = form.EmailType
+	entity.Url = form.Url
+	entity.Title = form.Title
 
-	mongo.AddFpToDB()
+	mongo.AddFpToDB(entity, mongo.GetMongoDB("gather-search"))
 }

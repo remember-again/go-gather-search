@@ -5,5 +5,5 @@ type FavoritePage struct {
 	Url       string
 	Email     string
 	EmailType uint8
-	Score     string
+	Score     float32
 }
