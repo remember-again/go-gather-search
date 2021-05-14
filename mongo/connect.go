@@ -5,15 +5,13 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
-	"time"
 )
 
 var client *mongo.Database
 
 func newClient(dbname string) *mongo.Database {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
-	client, err := mongo.Connect(ctx, options.Client().ApplyURI("mongodb://localhost:27017"))
+	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
+	client, err := mongo.Connect(context.TODO(), clientOptions)
 	if err != nil {
 		log.Println("connected mongodb error")
 		return nil
@@ -22,19 +20,16 @@ func newClient(dbname string) *mongo.Database {
 	err = client.Ping(context.TODO(), nil)
 	if err != nil {
 		log.Println(err)
+		return nil
 	}
 
-	defer func(client *mongo.Client, ctx context.Context) {
-		_ = client.Disconnect(ctx)
-	}(client, ctx)
-
-	db := client.Database(dbname)
-	return db
+	return client.Database(dbname)
 }
 
-func getClient(dbName string) *mongo.Database {
+func GetMongoDB(dbName string) *mongo.Database {
 	if client == nil {
 		client = newClient(dbName)
 	}
+
 	return client
 }
